@@ -1,3 +1,5 @@
+package convertToSequence;
+
 import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,7 +30,7 @@ public class convertToSequenceIndex{
 		}
 	}
 
-	public static BigInteger convertToSequenceIndex( String separator, String sequence, String dictionary ){
+	public static final BigInteger convertToSequenceIndex( String separator, String sequence, String dictionary ){
 		if( separator == null || separator == EMPTY_STRING ){
 			separator = DEFAULT_SEPARATOR;
 		}
@@ -100,7 +102,7 @@ public class convertToSequenceIndex{
 		This is made private and static so that it will not be even
 			accessible using reflections.
 	*/
-	private static boolean contains( String string, Pattern pattern ){
+	private static final boolean contains( String string, Pattern pattern ){
 		Matcher matcher = pattern.matcher( string );
 		int matchCount = 0;
 		while( matcher.find( ) ){
