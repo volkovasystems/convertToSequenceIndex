@@ -8,27 +8,24 @@ public class convertToSequenceIndex{
 	private static final String EMPTY_STRING = "";
 
 	public static void main( String... parameters ){
-		try{
-			String separator = parameters[ 0 ];
-			String sequence = parameters[ 1 ];
-			String dictionary = EMPTY_STRING;
+		String sequence = parameters[ 0 ];	
+		String dictionary = parameters[ 1 ];
+		String separator = EMPTY_STRING;
 
-			if( parameters.length == 3 ){
-				dictionary = parameters[ 2 ];
-			}else if( parameters.length == 2 ){
-				separator = EMPTY_STRING;
-				sequence = parameters[ 0 ];
-				dictionary = parameters[ 1 ];
-			}
-
-			BigInteger sequenceIndex = convertToSequenceIndex( separator, sequence, dictionary );
-			System.out.print( sequenceIndex.toString( ) );
-		}catch( Exception exception ){
-			System.err.print( "e: " + exception.getMessage( ) );
+		if( parameters.length == 3 ){
+			separator = parameters[ 2 ];
 		}
+		
+		BigInteger sequenceIndex = BigInteger.ZERO;
+		try{
+			BigInteger sequenceIndex = convertToSequenceIndex( sequence, dictionary, separator );
+		}catch( Exception exception ){
+			System.err.print( exception.getMessage( ) );
+		}
+		System.out.print( sequenceIndex.toString( ) );
 	}
 
-	public static final BigInteger convertToSequenceIndex( String separator, String sequence, String dictionary ){
+	public static final BigInteger convertToSequenceIndex( String sequence, String dictionary, String separator ){
 		if( separator == null || EMPTY_STRING.equals( separator ) ){
 			separator = DEFAULT_SEPARATOR;
 		}
