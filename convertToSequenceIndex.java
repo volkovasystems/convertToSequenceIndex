@@ -3,6 +3,10 @@ package convertToSequenceIndex;
 import java.math.BigInteger;
 import java.util.Arrays;
 
+/*
+	NOTE: Always compile with '-d .' 
+		And always run with <package-name>.<class-name> format
+*/
 public class convertToSequenceIndex{
 	private static final String DEFAULT_SEPARATOR = ",";
 	private static final String EMPTY_STRING = "";
@@ -15,14 +19,13 @@ public class convertToSequenceIndex{
 		if( parameters.length == 3 ){
 			separator = parameters[ 2 ];
 		}
-		
-		BigInteger sequenceIndex = BigInteger.ZERO;
+
 		try{
 			BigInteger sequenceIndex = convertToSequenceIndex( sequence, dictionary, separator );
+			System.out.print( sequenceIndex.toString( ) );
 		}catch( Exception exception ){
 			System.err.print( exception.getMessage( ) );
 		}
-		System.out.print( sequenceIndex.toString( ) );
 	}
 
 	public static final BigInteger convertToSequenceIndex( String sequence, String dictionary, String separator ){
