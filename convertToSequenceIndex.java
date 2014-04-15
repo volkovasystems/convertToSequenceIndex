@@ -1,8 +1,6 @@
-package convertToSequence;
+package convertToSequenceIndex;
 
 import java.math.BigInteger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Arrays;
 
 public class convertToSequenceIndex{
@@ -31,7 +29,7 @@ public class convertToSequenceIndex{
 	}
 
 	public static final BigInteger convertToSequenceIndex( String separator, String sequence, String dictionary ){
-		if( separator == null || separator == EMPTY_STRING ){
+		if( separator == null || EMPTY_STRING.equals( separator ) ){
 			separator = DEFAULT_SEPARATOR;
 		}
 
@@ -41,25 +39,35 @@ public class convertToSequenceIndex{
 		*/
 		String sequenceList[ ] = null;
 		String dictionaryList[ ] = null;
-		Pattern separatorPattern = Pattern.compile( separator );
-		if( contains( sequence, separatorPattern )
-			&& contains( sequence, separatorPattern ) )
-		{
+		if( sequence.matches( separator ) ){
 			sequenceList = sequence.split( separator );
-			dictionaryList = dictionary.split( separator );
 		}else{
 			/*
 				If we can't find any separator then separate
 					them by empty spaces.
 			*/
 			sequenceList = sequence.split( EMPTY_STRING );
-			dictionaryList = dictionary.split( EMPTY_STRING );
 
 			/*
 				We are doing this because there's an extra 
 					null element when we split by empty string.
 			*/
 			sequenceList = Arrays.copyOfRange( sequenceList, 1, sequenceList.length );
+		}
+		
+		if( dictionary.matches( separator ) ){
+			dictionaryList = dictionary.split( separator );
+		}else{
+			/*
+				If we can't find any separator then separate
+					them by empty spaces.
+			*/
+			dictionaryList = dictionary.split( EMPTY_STRING );
+			
+			/*
+				We are doing this because there's an extra 
+					null element when we split by empty string.
+			*/
 			dictionaryList = Arrays.copyOfRange( dictionaryList, 1, dictionaryList.length );
 		}
 
@@ -94,23 +102,5 @@ public class convertToSequenceIndex{
 			sequenceIndex = sequenceIndex.add( dictionaryLength.pow( index ).multiply( dictionaryIndex ) );
 		}
 		return sequenceIndex;
-	}
-
-	/*
-		This will check if the pattern is found in the string.
-		This will be used for finding the separator in the given sequence.
-		This is made private and static so that it will not be even
-			accessible using reflections.
-	*/
-	private static final boolean contains( String string, Pattern pattern ){
-		Matcher matcher = pattern.matcher( string );
-		int matchCount = 0;
-		while( matcher.find( ) ){
-			matchCount++;
-			if( matchCount > 0 ){
-				return true;
-			}
-		}
-		return false;
 	}
 }
