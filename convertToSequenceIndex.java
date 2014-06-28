@@ -29,7 +29,7 @@ public class convertToSequenceIndex{
 	}
 
 	public static final BigInteger convertToSequenceIndex( String sequence, String dictionary, String separator ){
-		if( separator == null || EMPTY_STRING.equals( separator ) ){
+		if( separator == null || separator.equals( EMPTY_STRING ) ){
 			separator = DEFAULT_SEPARATOR;
 		}
 
@@ -61,6 +61,8 @@ public class convertToSequenceIndex{
 			/*
 				If we can't find any separator then separate
 					them by empty spaces.
+
+				This is for cases like "abcdefghijklmnopqrstuvwxyz"
 			*/
 			dictionaryList = dictionary.split( EMPTY_STRING );
 			
