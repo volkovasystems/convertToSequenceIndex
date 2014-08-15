@@ -23,13 +23,14 @@ public class convertToSequenceIndex{
 		try{
 			BigInteger sequenceIndex = convertToSequenceIndex( sequence, dictionary, separator );
 			System.out.print( sequenceIndex.toString( ) );
+			
 		}catch( Exception exception ){
 			System.err.print( exception.getMessage( ) );
 		}
 	}
 
 	public static final BigInteger convertToSequenceIndex( String sequence, String dictionary, String separator ){
-		if( separator == null || separator.equals( EMPTY_STRING ) ){
+		if( separator.equals( null ) || separator.equals( EMPTY_STRING ) ){
 			separator = DEFAULT_SEPARATOR;
 		}
 
@@ -41,6 +42,7 @@ public class convertToSequenceIndex{
 		String dictionaryList[ ] = null;
 		if( sequence.matches( separator ) ){
 			sequenceList = sequence.split( separator );
+
 		}else{
 			/*
 				If we can't find any separator then separate
@@ -57,6 +59,7 @@ public class convertToSequenceIndex{
 		
 		if( dictionary.matches( separator ) ){
 			dictionaryList = dictionary.split( separator );
+
 		}else{
 			/*
 				If we can't find any separator then separate
