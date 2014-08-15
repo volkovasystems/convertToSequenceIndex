@@ -20,10 +20,15 @@ public class convertToSequenceIndex{
 			separator = parameters[ 2 ];
 		}
 
+		//: @todo: We need to expose this as an annotation object.
+		if( separator.equals( "@null" ) ){
+			separator = null;
+		}
+
 		try{
 			BigInteger sequenceIndex = convertToSequenceIndex( sequence, dictionary, separator );
 			System.out.print( sequenceIndex.toString( ) );
-			
+
 		}catch( Exception exception ){
 			System.err.print( exception.getMessage( ) );
 		}
