@@ -2,6 +2,7 @@ package convertToSequenceIndex;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /*
 	NOTE: Always compile with '-d .' 
@@ -43,10 +44,13 @@ public class convertToSequenceIndex{
 			We need to split the sequence and the dictionary
 				so that we can use the capabilities of arrays in java.
 		*/
-		String sequenceList[ ] = null;
-		String dictionaryList[ ] = null;
-		if( sequence.matches( separator ) ){
-			sequenceList = sequence.split( separator );
+		String[ ] sequenceList = null;
+		String[ ] dictionaryList = null;
+
+		String separatorPattern = separator.replaceAll( "([\\W\\S])", "\\\\$1" );
+
+		if( sequence.contains( separator ) ){
+			sequenceList = sequence.split( separatorPattern );
 
 		}else{
 			/*
@@ -54,16 +58,16 @@ public class convertToSequenceIndex{
 					them by empty spaces.
 			*/
 			sequenceList = sequence.split( EMPTY_STRING );
-
-			/*
-				We are doing this because there's an extra 
-					null element when we split by empty string.
-			*/
-			sequenceList = Arrays.copyOfRange( sequenceList, 1, sequenceList.length );
 		}
+
+		// This will remove anything empty on the sequence list.
+		LinkedList<String> list = new LinkedList<>( Arrays.asList( sequenceList ) );
+		while( list.remove( "" ) );
+		while( list.remove( null ) );
+		sequenceList = list.toArray( new String[ 0 ] );
 		
-		if( dictionary.matches( separator ) ){
-			dictionaryList = dictionary.split( separator );
+		if( dictionary.contains( separator ) ){
+			dictionaryList = dictionary.split( separatorPattern );
 
 		}else{
 			/*
@@ -73,13 +77,13 @@ public class convertToSequenceIndex{
 				This is for cases like "abcdefghijklmnopqrstuvwxyz"
 			*/
 			dictionaryList = dictionary.split( EMPTY_STRING );
-			
-			/*
-				We are doing this because there's an extra 
-					null element when we split by empty string.
-			*/
-			dictionaryList = Arrays.copyOfRange( dictionaryList, 1, dictionaryList.length );
 		}
+
+		// This will remove anything empty on the dictionary list.
+		list = new LinkedList<>( Arrays.asList( dictionaryList ) );
+		while( list.remove( "" ) );
+		while( list.remove( null ) );
+		dictionaryList = list.toArray( new String[ 0 ] );
 
 		int sequenceLength = sequenceList.length;
 		Integer dictionarySequenceLength = dictionaryList.length;
