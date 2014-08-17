@@ -35,8 +35,10 @@ public class convertToSequenceIndex{
 		}
 	}
 
-	public static final BigInteger convertToSequenceIndex( String sequence, String dictionary, String separator ){
-		if( separator.equals( null ) || separator.equals( EMPTY_STRING ) ){
+	public static final BigInteger convertToSequenceIndex( String sequence, String dictionary, String separator )
+		throws Exception
+	{
+		if( separator.equals( null ) ){
 			separator = DEFAULT_SEPARATOR;
 		}
 
