@@ -38,7 +38,9 @@ public class convertToSequenceIndex{
 	public static final BigInteger convertToSequenceIndex( String sequence, String dictionary, String separator )
 		throws Exception
 	{
-		if( separator.equals( null ) ){
+		if( separator.equals( null ) || 
+			separator.equals( EMPTY_STRING ) )
+		{
 			separator = DEFAULT_SEPARATOR;
 		}
 
@@ -110,7 +112,7 @@ public class convertToSequenceIndex{
 				The formula for the conversion from any sequence 
 					to it's lexicographic permutated index:
 
-					L(n,w,d) = nEi=0 (d^i)(w_n-i)
+					L(n,w,d) = nEi=0 ((d^i)(w_n-i))
 
 					The summation of the length of dictionary raise to the current index multiplied
 						by the element index from the dictionary starting at the last element.
